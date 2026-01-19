@@ -1,0 +1,38 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: qt-grpc-dev:latest
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - build-cache:/workspace/build
+    ports:
+      - "50051:50051"
+    command: >
+      bash -c "
+      cmake -S . -B build &&
+      cmake --build build &&
+      exec ./build/src/server/server
+      "
+
+  client:
+    image: qt-grpc-dev:latest
+    working_dir: /workspace
+    depends_on:
+      - server
+    volumes:
+      - .:/workspace
+      - build-cache:/workspace/build
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY}:${XAUTHORITY}
+    environment:
+      - DISPLAY=${DISPLAY}
+      - XAUTHORITY=${XAUTHORITY}
+    stdin_open: true
+    tty: true
+    command: bash
+
+volumes:
+  build-cache:
