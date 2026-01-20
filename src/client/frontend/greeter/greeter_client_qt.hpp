@@ -1,20 +1,26 @@
 #pragma once
 
-#include <memory>
-
 #include <QObject>
+#include <QThread>
 #include <QString>
 
-#include "client/backend/grpc_client/grpc_client.hpp"
+#include "client/frontend/greeter/greeter_worker.hpp"
 
-class GrpcClientQt : public QObject {
+class GreeterClientQt : public QObject {
     Q_OBJECT
 
 public:
-    explicit GrpcClientQt(QObject *parent = nullptr);
+    explicit GreeterClientQt(QObject *parent = nullptr);
+    ~GreeterClientQt();
 
-    Q_INVOKABLE QString sayHello(const QString &name);
+    Q_INVOKABLE void sayHelloAsync(const QString &name);
+
+signals:
+    void helloRequested(const QString &name);
+    void helloReceived(const QString &message);
+    void errorOccurred(const QString &error);
 
 private:
-    std::unique_ptr<GrpcClient> client_;
+    QThread workerThread_;
+    GreeterWorker *worker_;
 };

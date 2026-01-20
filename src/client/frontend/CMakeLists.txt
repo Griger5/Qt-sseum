@@ -5,7 +5,8 @@ set(CMAKE_AUTOUIC ON)
 
 qt_add_executable(client
     main.cpp
-    grpc_client/grpc_client_qt.cpp
+    greeter/greeter_client_qt.cpp
+    greeter/greeter_worker.cpp
 )
 
 target_link_libraries(client PRIVATE

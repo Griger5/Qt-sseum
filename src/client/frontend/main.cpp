@@ -2,15 +2,15 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "client/frontend/grpc_client/grpc_client_qt.hpp"
+#include "client/frontend/greeter/greeter_client_qt.hpp"
 
 int main(int argc, char *argv[]) {
-    GrpcClientQt grpcClient;
+    GreeterClientQt greeterClient;
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextProperty("grpcClient", &grpcClient);
+    engine.rootContext()->setContextProperty("greeterClient", &greeterClient);
 
     engine.loadFromModule("ClientApp", "Main");
 
