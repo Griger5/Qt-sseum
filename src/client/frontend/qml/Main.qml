@@ -7,44 +7,12 @@ ApplicationWindow {
     visible: true
     title: "Qt gRPC Client"
 
-    property bool busy: false
-
-    Column {
-        anchors.centerIn: parent
-        spacing: 12
-
-        TextField {
-            id: nameField
-            placeholderText: "Enter your name"
-        }
-
-        Button {
-            text: busy ? "Working..." : "Say Hello"
-            enabled: !busy
-            onClicked: {
-                busy = true
-                resultLabel.text = ""
-                greeterClient.sayHelloAsync(nameField.text)
-            }
-        }
-
-        Label {
-            id: resultLabel
-            text: ""
-        }
+    StackView {
+        id: stack
+        anchors.fill: parent
     }
 
-    Connections {
-        target: greeterClient
-
-        function onHelloReceived(message) {
-            busy = false
-            resultLabel.text = message
-        }
-
-        function onErrorOccurred(error) {
-            busy = false
-            resultLabel.text = "Error: " + error
-        }
+    Component.onCompleted: {
+        stack.push("GreeterPage.qml")
     }
 }
