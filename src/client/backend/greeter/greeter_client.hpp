@@ -7,9 +7,9 @@
 
 #include "proto/greeter.grpc.pb.h"
 
-class GrpcClient {
+class GreeterClient {
 public:
-    explicit GrpcClient(std::shared_ptr<grpc::Channel> channel);
+    explicit GreeterClient(std::shared_ptr<grpc::Channel> channel);
     std::string sayHello(const std::string &name);
 
 private:

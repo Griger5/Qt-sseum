@@ -1,5 +1,5 @@
 add_library(client_backend
-    grpc_client/grpc_client.cpp
+    greeter/greeter_client.cpp
 )
 
 target_link_libraries(client_backend PUBLIC

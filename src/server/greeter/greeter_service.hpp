@@ -6,5 +6,5 @@
 
 class GreeterService final : public greeter::Greeter::Service {
 public:
-    grpc::Status SayHello(grpc::ServerContext *context, const greeter::HelloRequest *request, greeter::HelloReply *reply) override;
+    grpc::Status sayHello(grpc::ServerContext *context, const greeter::HelloRequest *request, greeter::HelloReply *reply) override;
 };
