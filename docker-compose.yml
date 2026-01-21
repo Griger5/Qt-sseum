@@ -1,5 +1,6 @@
 services:
   server:
+    container_name: qtsseum-grpc-server
     build:
       context: .
       dockerfile: Dockerfile
@@ -18,6 +19,7 @@ services:
       "
 
   client:
+    container_name: qtsseum-client-app
     image: qt-grpc-dev:latest
     working_dir: /workspace
     depends_on:
@@ -34,5 +36,26 @@ services:
     tty: true
     command: bash
 
+  db:
+    container_name: qtsseum-postgres
+    image: postgres:18
+    restart: always
+    env_file: .env.example
+    ports:
+      - "5432:5432"
+    volumes: 
+      - db:/var/lib/postgresql
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  pgadmin:
+    container_name: qtsseum-pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    env_file: .env.example
+    ports:
+      - "5050:80"
+
 volumes:
+  db:
+    driver: local
   build-cache:
