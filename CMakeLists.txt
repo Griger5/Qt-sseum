@@ -5,6 +5,15 @@ find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick)
 
+include(FetchContent)
+
+FetchContent_Declare(
+    jwt-cpp
+    GIT_REPOSITORY https://github.com/Thalhammer/jwt-cpp.git
+    GIT_TAG v0.7.1
+)
+FetchContent_MakeAvailable(jwt-cpp)
+
 set(PROTO_DIR src/proto)
 
 add_library(protolib
