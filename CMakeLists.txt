@@ -29,5 +29,6 @@ protobuf_generate(TARGET protolib LANGUAGE grpc
     PLUGIN "protoc-gen-grpc=${GRPC_CPP_PLUGIN}"
 )
 
+add_subdirectory(src/utils)
 add_subdirectory(src/server)
 add_subdirectory(src/client)
