@@ -8,7 +8,7 @@ Item {
         id: loginComponent
         LoginPage {
             onGoToRegister: showRegister()
-            onLoginSuccess: showGreeter()
+            onLoginSuccessful: showGreeter()
         }
     }
 
@@ -22,17 +22,21 @@ Item {
     Component {
         id: greeterComponent
         GreeterPage {
-            onLogoutRequested: showLogin()
+            onLogoutRequested: logout()
         }
     }
 
-    function showLogin() {
+    function logout() {
         stackView.clear()
         stackView.push(loginComponent)
     }
 
+    function showLogin() {
+        stackView.replace(stackView.currentItem, loginComponent)
+    }
+
     function showRegister() {
-        stackView.push(registerComponent)
+        stackView.replace(stackView.currentItem, registerComponent)
     }
 
     function showGreeter() {

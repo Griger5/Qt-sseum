@@ -1,8 +1,10 @@
 import QtQuick
 import QtQuick.Controls
 
-Item {
+Page {
     property bool busy: false
+
+    signal logoutRequested()
 
     Column {
         anchors.centerIn: parent
@@ -26,6 +28,11 @@ Item {
         Label {
             id: resultLabel
             text: ""
+        }
+
+        Button {
+            text: "Logout"
+            onClicked: logoutRequested()
         }
     }
 

@@ -23,5 +23,10 @@ target_include_directories(client PRIVATE
 
 qt_add_qml_module(client
     URI ClientApp
-    QML_FILES qml/Main.qml qml/GreeterPage.qml
+    QML_FILES 
+        qml/Main.qml 
+        qml/Navigator.qml
+        qml/LoginPage.qml
+        qml/RegisterPage.qml
+        qml/GreeterPage.qml
 )

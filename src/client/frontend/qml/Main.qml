@@ -1,18 +1,40 @@
+// import QtQuick
+// import QtQuick.Controls
+
+// ApplicationWindow {
+//     width: 500
+//     height: 500
+//     visible: true
+//     title: "Qt gRPC Client"
+
+//     StackView {
+//         id: stackView
+//         anchors.fill: parent
+//         initialItem: LoginPage {
+//             onGoToRegister: stackView.replace("RegisterPage.qml")
+//         }
+//     }
+// }
+
 import QtQuick
 import QtQuick.Controls
 
 ApplicationWindow {
-    width: 400
-    height: 220
+    id: window
+    width: 700
+    height: 700
     visible: true
     title: "Qt gRPC Client"
 
     StackView {
-        id: stack
+        id: stackView
         anchors.fill: parent
     }
 
-    Component.onCompleted: {
-        stack.push("GreeterPage.qml")
+    Navigator {
+        id: navigator
+        stackView: stackView
     }
+
+    Component.onCompleted: navigator.showLogin()
 }
