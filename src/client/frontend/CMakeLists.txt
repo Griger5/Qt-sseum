@@ -7,6 +7,8 @@ qt_add_executable(client
     main.cpp
     greeter/greeter_client_qt.cpp
     greeter/greeter_worker.cpp
+    registration/registration_client_qt.cpp
+    registration/registration_worker.cpp
 )
 
 target_link_libraries(client PRIVATE
