@@ -1,11 +1,11 @@
-add_library(database
+add_library(database_dao
     dao/postgres/pg_user_dao.cpp
 )
 
-target_link_libraries(database PRIVATE
+target_link_libraries(database_dao PRIVATE
     pqxx
 )
 
-target_include_directories(database PRIVATE
+target_include_directories(database_dao PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/..
 )

@@ -18,4 +18,13 @@ public:
 
 private:
     pqxx::connection &conn_;
+
+    static db::User rowToUser(const pqxx::row &r) {
+        return db::User{
+            r["id"].as<std::string>(),
+            r["username"].as<std::string>(),
+            r["email"].as<std::string>(),
+            r["password_hash"].as<std::string>()
+        };
+    }
 };

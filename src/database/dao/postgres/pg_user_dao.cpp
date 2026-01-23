@@ -42,7 +42,7 @@ std::optional<db::User> PgUserDao::getUserById(const std::string &id) {
 
         const pqxx::row r = result[0];
 
-        return db::rowToUser(r);
+        return PgUserDao::rowToUser(r);
     }
     catch (const std::exception &e) {
         throw db::DaoError(e.what());
@@ -66,7 +66,7 @@ std::optional<db::User> PgUserDao::getUserByEmail(const std::string &email) {
 
         const pqxx::row r = result[0];
 
-        return db::rowToUser(r);
+        return PgUserDao::rowToUser(r);
     }
     catch (const std::exception &e) {
         throw db::DaoError(e.what());
