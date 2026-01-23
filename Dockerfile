@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
     libxcb-xfixes0 \
     locales \
     libpqxx-dev \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt

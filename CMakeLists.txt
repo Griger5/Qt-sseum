@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 project(Qt-sseum LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick)
@@ -14,10 +17,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(jwt-cpp)
 
+FetchContent_Declare(
+    bcrypt
+    GIT_REPOSITORY https://github.com/trusch/libbcrypt.git
+)
+FetchContent_MakeAvailable(bcrypt)
+
 set(PROTO_DIR src/proto)
 
 add_library(protolib
     ${PROTO_DIR}/greeter.proto
+    ${PROTO_DIR}/registration.proto
 )
 
 target_link_libraries(protolib PUBLIC
@@ -39,5 +49,6 @@ protobuf_generate(TARGET protolib LANGUAGE grpc
 )
 
 add_subdirectory(src/utils)
+add_subdirectory(src/database)
 add_subdirectory(src/server)
 add_subdirectory(src/client)

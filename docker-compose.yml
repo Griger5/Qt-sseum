@@ -6,17 +6,15 @@ services:
       dockerfile: Dockerfile
     image: qt-grpc-dev:latest
     working_dir: /workspace
+    depends_on:
+      - db
     volumes:
       - .:/workspace
       - build-cache:/workspace/build
+      - ./entrypoint.sh:/entrypoint.sh
     ports:
       - "50051:50051"
-    command: >
-      bash -c "
-      cmake -S . -B build &&
-      cmake --build build &&
-      exec ./build/src/server/server
-      "
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
 
   client:
     container_name: qtsseum-client-app
