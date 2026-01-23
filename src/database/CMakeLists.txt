@@ -3,6 +3,7 @@ add_library(database_dao
 )
 
 target_link_libraries(database_dao PRIVATE
+    utils
     pqxx
 )
 

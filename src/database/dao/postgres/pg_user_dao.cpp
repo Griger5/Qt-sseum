@@ -4,12 +4,13 @@
 #include <optional>
 
 #include "database/dao/errors.hpp"
-
-PgUserDao::PgUserDao(pqxx::connection &conn) : conn_(conn) {}
+#include "utils/db_config.hpp"
 
 bool PgUserDao::userExists(const std::string &email) {
     try {
-        pqxx::work tx{this->conn_};
+        pqxx::connection conn{utils::getDbConnectionString()};
+
+        pqxx::work tx{conn};
 
         auto result = tx.exec_params(
             "SELECT 1 FROM users WHERE email = $1 LIMIT 1",
@@ -27,7 +28,9 @@ bool PgUserDao::userExists(const std::string &email) {
 
 std::optional<db::User> PgUserDao::getUserById(const std::string &id) {
     try {
-        pqxx::work tx{this->conn_};
+        pqxx::connection conn{utils::getDbConnectionString()};
+
+        pqxx::work tx{conn};
 
         auto result = tx.exec_params(
             "SELECT * FROM users WHERE id = $1 LIMIT 1",
@@ -51,7 +54,9 @@ std::optional<db::User> PgUserDao::getUserById(const std::string &id) {
 
 std::optional<db::User> PgUserDao::getUserByEmail(const std::string &email) {
     try {
-        pqxx::work tx{this->conn_};
+        pqxx::connection conn{utils::getDbConnectionString()};
+
+        pqxx::work tx{conn};
 
         auto result = tx.exec_params(
             "SELECT * FROM users WHERE email = $1 LIMIT 1",
@@ -75,7 +80,9 @@ std::optional<db::User> PgUserDao::getUserByEmail(const std::string &email) {
 
 void PgUserDao::createUser(const std::string &username, const std::string &email, const std::string &password_hash) {
     try {
-        pqxx::work tx{this->conn_};
+        pqxx::connection conn{utils::getDbConnectionString()};
+
+        pqxx::work tx{conn};
 
         auto result = tx.exec_params(
             "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3)",
