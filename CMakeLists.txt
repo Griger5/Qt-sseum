@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(Qt-sseum LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Protobuf CONFIG REQUIRED)
@@ -23,11 +23,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(bcrypt)
 
+FetchContent_Declare(
+    uuid_v4
+    GIT_REPOSITORY https://github.com/crashoz/uuid_v4.git
+)
+FetchContent_MakeAvailable(uuid_v4)
+
 set(PROTO_DIR src/proto)
 
 add_library(protolib
     ${PROTO_DIR}/greeter.proto
     ${PROTO_DIR}/registration.proto
+    ${PROTO_DIR}/auth.proto
 )
 
 target_link_libraries(protolib PUBLIC

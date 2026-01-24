@@ -2,12 +2,16 @@ add_executable(server
     main.cpp
     greeter/greeter_service.cpp
     registration/registration_service.cpp
+    auth/auth_service.cpp
+    auth/jwt_auth_processor.cpp
 )
 
 target_link_libraries(server PRIVATE
     protolib
     database_dao
     bcrypt
+    jwt-cpp
+    uuid_v4::uuid_v4
     utils
 )
 

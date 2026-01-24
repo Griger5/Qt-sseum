@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package auth;
+
+service Auth {
+    rpc issueToken(IssueTokenRequest) returns (IssueTokenResponse);
+    rpc refreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+}
+
+message IssueTokenRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message IssueTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    uint64 expires_in = 3;
+}
+
+message RefreshTokenRequest {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    uint64 expires_in = 3;
+}
