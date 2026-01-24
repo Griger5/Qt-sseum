@@ -9,6 +9,8 @@ qt_add_executable(client
     greeter/greeter_worker.cpp
     registration/registration_client_qt.cpp
     registration/registration_worker.cpp
+    auth/auth_client_qt.cpp
+    auth/auth_worker.cpp
 )
 
 target_link_libraries(client PRIVATE

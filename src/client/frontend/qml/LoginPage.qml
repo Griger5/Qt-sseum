@@ -1,10 +1,18 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 import QtQuick.Layouts
 
 Page {
+    property bool busy: false
+
     signal goToRegister()
     signal loginSuccessful()
+
+    MessageDialog {
+        id: errorDialog
+        title: "Error"
+    }
 
     ColumnLayout {
         anchors.centerIn: parent
@@ -23,15 +31,15 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
             Label {
-                text: "Username"
+                text: "Email"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignLeft
             
             }
             TextField {
-                id: usernameInput;
-                placeholderText: "Enter your username"
+                id: emailInput;
+                placeholderText: "Enter your email"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -64,7 +72,10 @@ Page {
             Layout.fillWidth: true
             Layout.maximumWidth: 400
             Layout.alignment: Qt.AlignHCenter
-            onClicked: loginSuccessful()
+            onClicked: {
+                busy = true;
+                authClient.issueTokenAsync(emailInput.text, passwordInput.text)
+            }
         }
 
         Button {
@@ -74,6 +85,33 @@ Page {
             Layout.alignment: Qt.AlignHCenter
             flat: true
             onClicked: goToRegister()
+        }
+    }
+
+    Connections {
+        target: authClient
+
+        function onTokensIssued() {
+            busy = false
+            loginSuccessful()
+        }
+
+        function onInvalidCredentials() {
+            busy = false
+            errorDialog.text = "Invalid email or password!"
+            errorDialog.open()
+        }
+
+        function onAuthUnavailable() {
+            busy = false
+            errorDialog.text = "The service is currently unavailable. Try again later."
+            errorDialog.open()
+        }
+
+        function onErrorOccurred(error) {
+            busy = false
+            errorDialog.text = error
+            errorDialog.open()
         }
     }
 }
