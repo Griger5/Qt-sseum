@@ -78,6 +78,32 @@ std::optional<db::User> PgUserDao::getUserByEmail(const std::string &email) {
     }
 }
 
+std::optional<db::UserAuth> PgUserDao::getUserForAuth(const std::string &email) {
+    try {
+        pqxx::connection conn{utils::getDbConnectionString()};
+
+        pqxx::work tx{conn};
+
+        auto result = tx.exec_params(
+            "SELECT id, password_hash, role FROM users WHERE email = $1 LIMIT 1",
+            email
+        );
+
+        tx.commit();
+
+        if (result.empty()) {
+            return std::nullopt;
+        }
+
+        const pqxx::row r = result[0];
+
+        return PgUserDao::rowToUserAuth(r);
+    }
+    catch (const std::exception &e) {
+        throw db::DaoError(e.what());
+    }
+}
+
 void PgUserDao::createUser(const std::string &username, const std::string &email, const std::string &password_hash) {
     try {
         pqxx::connection conn{utils::getDbConnectionString()};

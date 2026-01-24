@@ -12,6 +12,7 @@ public:
     bool userExists(const std::string &email) override;
     std::optional<db::User> getUserById(const std::string &id) override;
     std::optional<db::User> getUserByEmail(const std::string &email) override;
+    std::optional<db::UserAuth> getUserForAuth(const std::string &email) override;
     void createUser(const std::string &username, const std::string &email, const std::string &password_hash) override;
 
 private:
@@ -20,7 +21,16 @@ private:
             r["id"].as<std::string>(),
             r["username"].as<std::string>(),
             r["email"].as<std::string>(),
-            r["password_hash"].as<std::string>()
+            r["password_hash"].as<std::string>(),
+            r["role"].as<std::string>()
+        };
+    }
+
+    static db::UserAuth rowToUserAuth(const pqxx::row &r) {
+        return db::UserAuth{
+            r["id"].as<std::string>(),
+            r["password_hash"].as<std::string>(),
+            r["role"].as<std::string>()
         };
     }
 };
