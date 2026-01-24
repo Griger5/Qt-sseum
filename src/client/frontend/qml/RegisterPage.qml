@@ -150,6 +150,12 @@ Page {
             errorDialog.open();
         }
 
+        function onDatabaseUnavailable() {
+            busy = false;
+            errorDialog.text = "The service is currently unavailable. Try again later.";
+            errorDialog.open();
+        }
+
         function onErrorOccurred(error) {
             busy = false;
             errorDialog.text = error;

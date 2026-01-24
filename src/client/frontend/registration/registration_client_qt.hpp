@@ -18,6 +18,7 @@ signals:
     void registrationRequested(const QString &username, const QString &email, const QString &password);
     void registrationSuccessful();
     void userAlreadyExists();
+    void databaseUnavailable();
     void errorOccurred(const QString &error);
 
 private:

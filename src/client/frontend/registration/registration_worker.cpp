@@ -18,6 +18,9 @@ void RegistrationWorker::registerUser(const QString &username, const QString &em
             case RegistrationClient::ALREADY_EXISTS:
                 emit userAlreadyExists();
                 break;
+            case RegistrationClient::UNAVAILABLE:
+                emit databaseUnavailable();
+                break;
             case RegistrationClient::INTERNAL_ERROR:
                 emit errorOccurred("Internal server error");
                 break;

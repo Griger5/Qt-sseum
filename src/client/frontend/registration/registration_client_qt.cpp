@@ -9,6 +9,7 @@ RegistrationClientQt::RegistrationClientQt(QObject *parent) : QObject(parent), w
     connect(this, &RegistrationClientQt::registrationRequested, this->worker_, &RegistrationWorker::registerUser, Qt::QueuedConnection);
     connect(this->worker_, &RegistrationWorker::registrationSuccessful, this, &RegistrationClientQt::registrationSuccessful);
     connect(this->worker_, &RegistrationWorker::userAlreadyExists, this, &RegistrationClientQt::userAlreadyExists);
+    connect(this->worker_, &RegistrationWorker::databaseUnavailable, this, &RegistrationClientQt::databaseUnavailable);
     connect(this->worker_, &RegistrationWorker::errorOccurred, this, &RegistrationClientQt::errorOccurred);
 
     this->workerThread_.start();

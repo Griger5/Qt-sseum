@@ -12,6 +12,7 @@ public:
     enum RegistrationResult {
         SUCCESS,
         ALREADY_EXISTS,
+        UNAVAILABLE,
         INTERNAL_ERROR
     };
 

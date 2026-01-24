@@ -20,6 +20,8 @@ RegistrationClient::RegistrationResult RegistrationClient::registerUser(const st
         case grpc::StatusCode::ALREADY_EXISTS:
             return ALREADY_EXISTS;
             break;
+        case grpc::StatusCode::UNAVAILABLE:
+            return UNAVAILABLE
         default:
             return INTERNAL_ERROR;
             break;

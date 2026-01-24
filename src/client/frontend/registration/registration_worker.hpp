@@ -18,6 +18,7 @@ public slots:
 signals:
     void registrationSuccessful();
     void userAlreadyExists();
+    void databaseUnavailable();
     void errorOccurred(const QString &error);
 
 private:
