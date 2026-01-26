@@ -3,7 +3,6 @@ add_executable(server
     greeter/greeter_service.cpp
     registration/registration_service.cpp
     auth/auth_service.cpp
-    auth/jwt_auth_processor.cpp
 )
 
 target_link_libraries(server PRIVATE
