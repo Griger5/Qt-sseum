@@ -5,8 +5,13 @@
 #include "client/frontend/greeter/greeter_client_qt.hpp"
 #include "client/frontend/registration/registration_client_qt.hpp"
 #include "client/frontend/auth/auth_client_qt.hpp"
+#include "client/core/token_manager.hpp"
+
+#include "utils/load_dotenv.hpp"
 
 int main(int argc, char *argv[]) {
+    utils::loadDotEnv(".env.example");
+
     GreeterClientQt greeterClient;
     RegistrationClientQt registrationClient;
     AuthClientQt authClient;

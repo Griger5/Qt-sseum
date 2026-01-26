@@ -18,7 +18,9 @@ target_link_libraries(client PRIVATE
     Qt6::Gui
     Qt6::Qml
     Qt6::Quick
+    client_core
     client_backend
+    utils
 )
 
 target_include_directories(client PRIVATE

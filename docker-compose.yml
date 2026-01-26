@@ -25,6 +25,7 @@ services:
     volumes:
       - .:/workspace
       - build-cache:/workspace/build
+      - client_settings:/root/.config
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${XAUTHORITY}:${XAUTHORITY}
     environment:
@@ -57,3 +58,4 @@ volumes:
   db:
     driver: local
   build-cache:
+  client_settings:
