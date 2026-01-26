@@ -1,16 +1,25 @@
 #include "client/backend/greeter/greeter_client.hpp"
 
-GreeterClient::GreeterClient(std::shared_ptr<grpc::Channel> channel) {
-    this->stub_ = greeter::Greeter::NewStub(channel);
-}
+#include "client/core/token_manager.hpp"
 
-std::string GreeterClient::sayHello(const std::string &name) {
-    greeter::HelloRequest req;
-    greeter::HelloReply reply;
+GreeterClient::GreeterClient(std::shared_ptr<grpc::Channel> channel) : GrpcClientBase(channel), stub_(greeter::Greeter::NewStub(channel)) {}
+
+GrpcCallResult GreeterClient::sayHello(const std::string &name, std::string &reply) {
     grpc::ClientContext ctx;
+    greeter::HelloRequest request;
+    greeter::HelloReply response;
 
-    req.set_name(name);
-    this->stub_->sayHello(&ctx, req, &reply);
+    request.set_name(name);
 
-    return reply.message();
+    return executeWithAuthRetry([&] {
+        this->attachAuth(ctx);
+
+        grpc::Status status = this->stub_->sayHello(&ctx, request, &response);
+
+        if (status.ok()) {
+            reply = response.message();
+        }
+
+        return status;
+    });
 }

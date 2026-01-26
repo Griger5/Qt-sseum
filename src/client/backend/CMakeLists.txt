@@ -6,6 +6,7 @@ add_library(client_backend
 
 target_link_libraries(client_backend PUBLIC
     protolib
+    client_core
 )
 
 target_include_directories(client_backend PRIVATE

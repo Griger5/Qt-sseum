@@ -7,10 +7,13 @@
 
 #include "proto/greeter.grpc.pb.h"
 
-class GreeterClient {
+#include "client/core/grpc_client_base.hpp"
+
+class GreeterClient : public GrpcClientBase {
 public:
-    explicit GreeterClient(std::shared_ptr<grpc::Channel> channel);
-    std::string sayHello(const std::string &name);
+    GreeterClient(std::shared_ptr<grpc::Channel> channel);
+
+    GrpcCallResult sayHello(const std::string &name, std::string &reply);
 
 private:
     std::unique_ptr<greeter::Greeter::Stub> stub_;

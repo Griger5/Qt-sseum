@@ -21,7 +21,7 @@ RegistrationClient::RegistrationResult RegistrationClient::registerUser(const st
             return ALREADY_EXISTS;
             break;
         case grpc::StatusCode::UNAVAILABLE:
-            return UNAVAILABLE
+            return UNAVAILABLE;
         default:
             return INTERNAL_ERROR;
             break;
