@@ -1,0 +1,19 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>resources/weapons/axe.png</file>
+        <file>resources/weapons/dagger.png</file>
+        <file>resources/weapons/gladius.png</file>
+        <file>resources/weapons/hammer.png</file>
+        <file>resources/weapons/longsword.png</file>
+        <file>resources/weapons/mace.png</file>
+        <file>resources/weapons/spear.png</file>
+        <file>resources/weapons/trident.png</file>
+
+        <file>resources/gladiators/dimachaerus.png</file>
+        <file>resources/gladiators/gallius.png</file>
+        <file>resources/gladiators/hoplomachus.png</file>
+        <file>resources/gladiators/murmillo.png</file>
+        <file>resources/gladiators/retiarius.png</file>
+    </qresource>
+</RCC>
