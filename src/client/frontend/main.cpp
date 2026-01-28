@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("registrationClient", &registrationClient);
     engine.rootContext()->setContextProperty("authClient", &authClient);
 
-    engine.loadFromModule("ClientApp", "Main");
+    engine.loadFromModule("ClientApp", "App");
 
     if (engine.rootObjects().isEmpty()) return -1;
 
