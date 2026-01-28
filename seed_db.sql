@@ -9,16 +9,32 @@ INSERT INTO abstract_item (name) VALUES
     ('Gladius')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO item_prefix (prefix, strength, dexterity, defence, vitality) VALUES
-  ('Gaius', 3, 0, 0, 0),
-  ('Ceaser', 1, 2, 2, 1),
-  ('Servius', 4, -1, 1, 0)
+INSERT INTO item_prefix (prefix, strength, dexterity, defence, vitality)
+SELECT
+    name,
+    (floor(random() * 6))::int,
+    (floor(random() * 6))::int,
+    (floor(random() * 6))::int,
+    (floor(random() * 6))::int
+FROM (VALUES
+    ('Gaius'),
+    ('Ceaser'),
+    ('Servius')
+) AS temp(name)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO item_suffix (suffix, strength, dexterity, defence, vitality) VALUES
-  ('of Accuracy', 0, 3, 0, 0),
-  ('of Power', 3, 1, -1, -1),
-  ('of Blood', 0, 0, 2, 2)
+INSERT INTO item_suffix (suffix, strength, dexterity, defence, vitality)
+SELECT
+    name,
+    (floor(random() * 6))::int,
+    (floor(random() * 6))::int,
+    (floor(random() * 6))::int,
+    (floor(random() * 6))::int
+FROM (VALUES
+    ('of Accuracy'),
+    ('of Power'),
+    ('of Blood')
+) AS temp(name)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO item_names (name_id, base_name, prefix, suffix, taken)
