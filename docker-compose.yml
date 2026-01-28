@@ -44,7 +44,8 @@ services:
       - "5432:5432"
     volumes: 
       - db:/var/lib/postgresql
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./init_db.sql:/docker-entrypoint-initdb.d/001_init_db.sql
+      - ./seed_db.sql:/docker-entrypoint-initdb.d/010_seed_db.sql
 
   pgadmin:
     container_name: qtsseum-pgadmin4

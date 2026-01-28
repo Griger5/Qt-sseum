@@ -47,6 +47,10 @@ CREATE TABLE item_names (
     FOREIGN KEY (suffix) REFERENCES item_suffix(suffix)
 );
 
+ALTER TABLE item_names
+ADD CONSTRAINT unique_item_name
+UNIQUE (base_name, prefix, suffix);
+
 CREATE TABLE item_instance (
     item_id uuid PRIMARY KEY,
     name_id uuid NOT NULL,
