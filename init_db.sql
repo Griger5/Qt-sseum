@@ -106,3 +106,31 @@ CREATE TABLE market (
     FOREIGN KEY (item_id) REFERENCES item_instance(item_id),
     FOREIGN KEY (player_id) REFERENCES users(id)
 );
+
+CREATE OR REPLACE FUNCTION create_player_stats()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO player_stats(id, money, level, exp)
+    VALUES (NEW.id, 100, 1, 0);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_create_player_stats
+AFTER INSERT ON users
+FOR EACH ROW
+EXECUTE FUNCTION create_player_stats();
+
+CREATE OR REPLACE FUNCTION update_player_level()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.level := FLOOR(NEW.exp / 100)::integer + 1;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_update_player_level
+BEFORE UPDATE ON player_stats
+FOR EACH ROW
+WHEN (OLD.exp IS DISTINCT FROM NEW.exp)
+EXECUTE FUNCTION update_player_level();
