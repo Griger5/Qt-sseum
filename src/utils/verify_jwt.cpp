@@ -7,23 +7,23 @@
 
 namespace utils {
 
-bool verifyJWT(const std::string &token) {
+std::optional<std::string> verifyJWT(const std::string &token) {
     if (token.empty()) {
-        return false;
+        return std::nullopt;
     }
 
     const std::string issuer = std::getenv("QTSSEUM_JWT_ISSUER");
     const std::string secret = std::getenv("QTSSEUM_JWT_SECRET");
 
     if (issuer.empty() || secret.empty()) {
-        return false;
+        return std::nullopt;
     }
 
     try {
         auto decoded = jwt::decode(token);
 
         if (!decoded.has_expires_at()) {
-            return false;
+            return std::nullopt;
         }
 
         auto verifier = jwt::verify()
@@ -33,19 +33,16 @@ bool verifyJWT(const std::string &token) {
         std::error_code ec;
         verifier.verify(decoded, ec);
 
-        switch (ec.value()) {
-            case 0:
-                break;
-            case 14:
-                return false;
-            default:
-                return false;
-        }
+        if (ec.value() != 0)
+            return std::nullopt;
 
-        return true;
+        if (!decoded.has_subject())
+            return std::nullopt;
+
+        return decoded.get_subject();
     }
     catch (const std::exception &) {
-        return false;
+        return std::nullopt;
     }
 }
 

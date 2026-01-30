@@ -1,9 +1,10 @@
 #pragma once
 
 #include <string>
+#include <optional>
 
 namespace utils {
 
-bool verifyJWT(const std::string &token);
+std::optional<std::string> verifyJWT(const std::string &token);
 
 } // utils
