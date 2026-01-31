@@ -20,7 +20,7 @@ public:
     struct AuthTokens {
         std::string access_token;
         std::string refresh_token;
-        uint64_t expires_in;
+        std::uint64_t expires_in;
     };
 
     explicit AuthClient(std::shared_ptr<grpc::Channel> channel);
