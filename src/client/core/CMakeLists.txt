@@ -6,6 +6,7 @@ set(CMAKE_AUTOUIC ON)
 add_library(client_core
     token_manager.cpp
     grpc_client_base.cpp
+    session_logic.cpp
 )
 
 target_link_libraries(client_core PUBLIC

@@ -35,6 +35,7 @@ add_library(protolib
     ${PROTO_DIR}/greeter.proto
     ${PROTO_DIR}/registration.proto
     ${PROTO_DIR}/auth.proto
+    ${PROTO_DIR}/user.proto
 )
 
 target_link_libraries(protolib PUBLIC
