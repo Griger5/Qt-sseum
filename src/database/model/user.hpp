@@ -16,4 +16,12 @@ struct UserAuth {
     std::string role;
 };
 
+struct UserStats {
+    std::string id;
+    std::string username;
+    std::uint64_t money;
+    std::uint64_t level;
+    std::uint64_t exp;
+};
+
 } // db
