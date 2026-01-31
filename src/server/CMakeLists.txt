@@ -3,6 +3,7 @@ add_executable(server
     greeter/greeter_service.cpp
     registration/registration_service.cpp
     auth/auth_service.cpp
+    user/user_service.cpp
 )
 
 target_link_libraries(server PRIVATE
