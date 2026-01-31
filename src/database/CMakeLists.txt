@@ -1,5 +1,7 @@
 add_library(database_dao
     dao/postgres/pg_user_dao.cpp
+    dao/postgres/pg_gladiator_dao.cpp
+    dao/postgres/pg_item_dao.cpp
 )
 
 target_link_libraries(database_dao PRIVATE
