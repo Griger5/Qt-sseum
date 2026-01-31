@@ -7,7 +7,7 @@ Page {
     property bool busy: false
 
     signal goToRegister()
-    signal loginSuccessful()
+    signal goToMainPage()
 
     MessageDialog {
         id: errorDialog
@@ -93,7 +93,7 @@ Page {
 
         function onTokensIssued() {
             busy = false
-            loginSuccessful()
+            sessionLogic.onLoginSuccessful()
         }
 
         function onInvalidCredentials() {
@@ -106,6 +106,20 @@ Page {
             busy = false
             errorDialog.text = "The service is currently unavailable. Try again later."
             errorDialog.open()
+        }
+
+        function onErrorOccurred(error) {
+            busy = false
+            errorDialog.text = error
+            errorDialog.open()
+        }
+    }
+
+    Connections {
+        target: sessionLogic
+
+        function onProfileReady() {
+            goToMainPage()
         }
 
         function onErrorOccurred(error) {

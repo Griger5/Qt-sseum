@@ -8,7 +8,7 @@ Item {
         id: loginComponent
         LoginPage {
             onGoToRegister: showRegister()
-            onLoginSuccessful: showGreeter()
+            onGoToMainPage: showMainPage()
         }
     }
 
@@ -16,6 +16,13 @@ Item {
         id: registerComponent
         RegisterPage {
             onGoToLogin: showLogin()
+        }
+    }
+
+    Component {
+        id: mainPageComponent
+        MainPage {
+            onLogoutRequested: logout()
         }
     }
 
@@ -37,6 +44,10 @@ Item {
 
     function showRegister() {
         stackView.replace(stackView.currentItem, registerComponent)
+    }
+
+    function showMainPage() {
+        stackView.replace(stackView.currentItem, mainPageComponent)
     }
 
     function showGreeter() {

@@ -5,12 +5,18 @@ set(CMAKE_AUTOUIC ON)
 
 qt_add_executable(client
     main.cpp
+    frontend.qrc
+    models/user_qml.cpp
+    models/gladiator_qml.cpp
+    models/item_qml.cpp
     greeter/greeter_client_qt.cpp
     greeter/greeter_worker.cpp
     registration/registration_client_qt.cpp
     registration/registration_worker.cpp
     auth/auth_client_qt.cpp
     auth/auth_worker.cpp
+    user/user_client_qt.cpp
+    user/user_worker.cpp
 )
 
 target_link_libraries(client PRIVATE
@@ -34,5 +40,6 @@ qt_add_qml_module(client
         qml/Navigator.qml
         qml/LoginPage.qml
         qml/RegisterPage.qml
+        qml/MainPage.qml
         qml/GreeterPage.qml
 )

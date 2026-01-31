@@ -4,7 +4,7 @@
 
 #include "database/dao/errors.hpp"
 
-RegistrationService::RegistrationService(std::shared_ptr<IUserDao> dao) : user_dao(dao) {}
+RegistrationService::RegistrationService(std::unique_ptr<IUserDao> dao) : user_dao(std::move(dao)) {}
 
 grpc::Status RegistrationService::registerUser(grpc::ServerContext *context, const registration::RegisterRequest *request, registration::RegisterResponse *reply) {
     std::string username = request->username();

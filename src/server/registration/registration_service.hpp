@@ -8,10 +8,10 @@
 
 class RegistrationService final : public registration::Registration::Service {
 private:
-    std::shared_ptr<IUserDao> user_dao;
+    std::unique_ptr<IUserDao> user_dao;
 
 public:
-    explicit RegistrationService(std::shared_ptr<IUserDao> dao);
+    explicit RegistrationService(std::unique_ptr<IUserDao> dao);
 
     grpc::Status registerUser(grpc::ServerContext *context, const registration::RegisterRequest *request, registration::RegisterResponse *reply) override;
 };
