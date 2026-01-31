@@ -13,5 +13,6 @@ public:
     virtual std::optional<db::User> getUserById(const std::string &id) = 0;
     virtual std::optional<db::User> getUserByEmail(const std::string &email) = 0;
     virtual std::optional<db::UserAuth> getUserForAuth(const std::string &email) = 0;
+    virtual std::optional<db::UserStats> getUserStats(const std::string &id) = 0;
     virtual void createUser(const std::string &username, const std::string &email, const std::string &password_hash) = 0;
 };
