@@ -59,11 +59,13 @@ CREATE TABLE item_instance (
     FOREIGN KEY (name_id) REFERENCES item_names(name_id)
 );
 
+CREATE TYPE gladiator_class AS ENUM ('Gallius', 'Dimachaerus', 'Hoplomachus', 'Retiarius', 'Murmillo');
 
 CREATE TABLE gladiators (
     gladiator_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     owner_id uuid NOT NULL,
     name text NOT NULL,
+    class gladiator_class NOT NULL,
     strength integer NOT NULL,
     dexterity integer NOT NULL,
     defence integer NOT NULL,
@@ -116,10 +118,79 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION generate_item_name_combinations()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO item_names (name_id, base_name, prefix, suffix, taken)
+    SELECT
+        gen_random_uuid(),
+        ai.name,
+        ip.prefix,
+        isf.suffix,
+        false
+    FROM abstract_item ai
+    CROSS JOIN item_prefix ip
+    CROSS JOIN item_suffix isf
+    ON CONFLICT (base_name, prefix, suffix) DO NOTHING;
+
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_generate_item_names_on_base
+AFTER INSERT ON abstract_item
+FOR EACH STATEMENT
+EXECUTE FUNCTION generate_item_name_combinations();
+
+CREATE TRIGGER trigger_generate_item_names_on_prefix
+AFTER INSERT ON item_prefix
+FOR EACH STATEMENT
+EXECUTE FUNCTION generate_item_name_combinations();
+
+CREATE TRIGGER trigger_generate_item_names_on_suffix
+AFTER INSERT ON item_suffix
+FOR EACH STATEMENT
+EXECUTE FUNCTION generate_item_name_combinations();
+
 CREATE TRIGGER trigger_create_player_stats
 AFTER INSERT ON users
 FOR EACH ROW
 EXECUTE FUNCTION create_player_stats();
+
+CREATE OR REPLACE FUNCTION create_starting_gladiator()
+RETURNS TRIGGER AS $$
+DECLARE
+    name_pool text[] := ARRAY[
+        'Aurelius',
+        'Maximus',
+        'Cassius',
+        'Brutus',
+        'Tiberius',
+        'Valerius',
+        'Octavian',
+        'Lucanus'
+    ];
+    chosen_name text;
+    chosen_class gladiator_class;
+BEGIN
+    chosen_name := name_pool[1 + floor(random() * array_length(name_pool, 1))::int];
+
+    SELECT val
+    INTO chosen_class
+    FROM unnest(enum_range(NULL::gladiator_class)) AS val
+    ORDER BY random()
+    LIMIT 1;
+
+    INSERT INTO gladiators (owner_id, name, class, strength, dexterity, defence, vitality, item_id)
+    VALUES (NEW.id, chosen_name, chosen_class, 5, 5, 5, 5, NULL);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_create_starting_gladiator
+AFTER INSERT ON users
+FOR EACH ROW
+EXECUTE FUNCTION create_starting_gladiator();
 
 CREATE OR REPLACE FUNCTION update_player_level()
 RETURNS TRIGGER AS $$
@@ -134,3 +205,54 @@ BEFORE UPDATE ON player_stats
 FOR EACH ROW
 WHEN (OLD.exp IS DISTINCT FROM NEW.exp)
 EXECUTE FUNCTION update_player_level();
+
+CREATE OR REPLACE FUNCTION create_item_instance_for_new_name()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO item_instance (item_id, name_id, min_damage, max_damage)
+    VALUES (
+        gen_random_uuid(),
+        NEW.name_id,
+        (floor(random() * 10)::int + 1),
+        (floor(random() * 10)::int + 11)
+    );
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_create_item_instance
+AFTER INSERT ON item_names
+FOR EACH ROW
+EXECUTE FUNCTION create_item_instance_for_new_name();
+
+CREATE OR REPLACE FUNCTION assign_random_weapon_to_gladiator()
+RETURNS TRIGGER AS $$
+DECLARE
+    chosen_item_id uuid;
+BEGIN
+    SELECT ii.item_id
+    INTO chosen_item_id
+    FROM item_instance ii
+    JOIN item_names iname ON iname.name_id = ii.name_id
+    WHERE iname.taken = false
+    ORDER BY random()
+    LIMIT 1;
+
+    IF chosen_item_id IS NOT NULL THEN
+        UPDATE gladiators
+        SET item_id = chosen_item_id
+        WHERE gladiator_id = NEW.gladiator_id;
+
+        UPDATE item_names
+        SET taken = true
+        WHERE name_id = (SELECT name_id FROM item_instance WHERE item_id = chosen_item_id);
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_assign_random_weapon
+AFTER INSERT ON gladiators
+FOR EACH ROW
+EXECUTE FUNCTION assign_random_weapon_to_gladiator();
