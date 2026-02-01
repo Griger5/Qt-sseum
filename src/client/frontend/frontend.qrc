@@ -15,5 +15,7 @@
         <file>resources/gladiators/hoplomachus.png</file>
         <file>resources/gladiators/murmillo.png</file>
         <file>resources/gladiators/retiarius.png</file>
+
+        <file>resources/misc/trainer.png</file>
     </qresource>
 </RCC>
