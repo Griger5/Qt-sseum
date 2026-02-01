@@ -11,6 +11,7 @@
 #include "server/registration/registration_service.hpp"
 #include "server/auth/auth_service.hpp"
 #include "server/user/user_service.hpp"
+#include "server/trainer/trainer_service.hpp"
 
 #include "utils/load_dotenv.hpp"
 #include "utils/db_config.hpp"
@@ -22,6 +23,7 @@ int main() {
     RegistrationService registration_service{std::make_unique<PgUserDao>()};
     AuthService auth_service{std::make_unique<PgUserDao>()};
     UserService user_service{std::make_unique<PgUserDao>(), std::make_unique<PgGladiatorDao>(), std::make_unique<PgItemDao>()};
+    TrainerService trainer_service{std::make_unique<PgUserDao>(), std::make_unique<PgGladiatorDao>()};
 
     grpc::ServerBuilder builder;
 
@@ -30,6 +32,7 @@ int main() {
     builder.RegisterService(&registration_service);
     builder.RegisterService(&auth_service);
     builder.RegisterService(&user_service);
+    builder.RegisterService(&trainer_service);
 
     std::unique_ptr<grpc::Server> server{builder.BuildAndStart()};
     

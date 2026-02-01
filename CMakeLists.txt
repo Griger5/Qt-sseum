@@ -36,6 +36,7 @@ add_library(protolib
     ${PROTO_DIR}/registration.proto
     ${PROTO_DIR}/auth.proto
     ${PROTO_DIR}/user.proto
+    ${PROTO_DIR}/trainer.proto
 )
 
 target_link_libraries(protolib PUBLIC

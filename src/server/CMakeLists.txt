@@ -4,6 +4,7 @@ add_executable(server
     registration/registration_service.cpp
     auth/auth_service.cpp
     user/user_service.cpp
+    trainer/trainer_service.cpp
 )
 
 target_link_libraries(server PRIVATE

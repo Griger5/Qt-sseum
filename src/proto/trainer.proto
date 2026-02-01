@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package trainer;
+
+service Trainer {
+    rpc upgradeStat (UpgradeRequest) returns (UpgradeResponse);
+}
+
+enum Stats {
+    STRENGTH = 0;
+    DEXTERITY = 1;
+    DEFENCE = 2;
+    VITALITY = 3;
+}
+
+message UpgradeRequest {
+    string gladiator_id = 1;
+    Stats stat = 2;
+    uint64 value = 3;
+}
+
+message UpgradeResponse {
+    uint64 strength = 1;
+    uint64 dexterity = 2;
+    uint64 defence = 3;
+    uint64 vitality = 4;
+    uint64 money = 5;
+}
