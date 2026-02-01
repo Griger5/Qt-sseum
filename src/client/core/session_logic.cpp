@@ -18,3 +18,23 @@ void SessionLogic::onProfileLoaded(const UserClient::Profile &profile) {
 
     emit profileReady();
 }
+
+void SessionLogic::onStatUpgraded(const TrainerClient::StatUpgradeResult &result) {
+    gladiator->populate(
+        gladiator->id(),
+        gladiator->name(),
+        gladiator->gladiatorClass(),
+        result.strength,
+        result.dexterity,
+        result.defence,
+        result.vitality
+    );
+
+    user->populate(
+        user->id(),
+        user->username(),
+        user->level(),
+        user->experience(),
+        result.money
+    );
+}

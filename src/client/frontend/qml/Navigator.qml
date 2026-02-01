@@ -23,6 +23,14 @@ Item {
         id: mainPageComponent
         MainPage {
             onLogoutRequested: logout()
+            onGoToTraining: showTraining()
+        }
+    }
+
+    Component {
+        id: trainerComponent
+        TrainerPage {
+            onGoToMainPage: goBack()
         }
     }
 
@@ -48,6 +56,14 @@ Item {
 
     function showMainPage() {
         stackView.replace(stackView.currentItem, mainPageComponent)
+    }
+
+    function goBack() {
+        stackView.pop()
+    }
+
+    function showTraining() {
+        stackView.push(trainerComponent)
     }
 
     function showGreeter() {

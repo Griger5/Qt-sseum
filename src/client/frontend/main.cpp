@@ -5,6 +5,7 @@
 #include "client/frontend/greeter/greeter_client_qt.hpp"
 #include "client/frontend/registration/registration_client_qt.hpp"
 #include "client/frontend/auth/auth_client_qt.hpp"
+#include "client/frontend/trainer/trainer_client_qt.hpp"
 #include "client/frontend/models/user_qml.hpp"
 #include "client/frontend/models/gladiator_qml.hpp"
 #include "client/frontend/models/item_qml.hpp"
@@ -19,6 +20,7 @@ int main(int argc, char *argv[]) {
     GreeterClientQt greeterClient;
     RegistrationClientQt registrationClient;
     AuthClientQt authClient;
+    TrainerClientQt trainerClient;
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
@@ -28,6 +30,9 @@ int main(int argc, char *argv[]) {
     ItemQML item;
     SessionLogic sessionLogic(&user, &gladiator, &item);
 
+    QObject::connect(&trainerClient, &TrainerClientQt::upgradeStatSuccessful, &sessionLogic, &SessionLogic::onStatUpgraded);
+    QObject::connect(&trainerClient, &TrainerClientQt::errorOccurred,&sessionLogic, &SessionLogic::errorOccurred);
+
     engine.rootContext()->setContextProperty("User", &user);
     engine.rootContext()->setContextProperty("Gladiator", &gladiator);
     engine.rootContext()->setContextProperty("Weapon", &item);
@@ -36,6 +41,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("greeterClient", &greeterClient);
     engine.rootContext()->setContextProperty("registrationClient", &registrationClient);
     engine.rootContext()->setContextProperty("authClient", &authClient);
+    engine.rootContext()->setContextProperty("trainerClient", &trainerClient);
 
     engine.loadFromModule("ClientApp", "App");
 

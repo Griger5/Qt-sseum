@@ -17,6 +17,8 @@ qt_add_executable(client
     auth/auth_worker.cpp
     user/user_client_qt.cpp
     user/user_worker.cpp
+    trainer/trainer_client_qt.cpp
+    trainer/trainer_worker.cpp
 )
 
 target_link_libraries(client PRIVATE
@@ -41,5 +43,6 @@ qt_add_qml_module(client
         qml/LoginPage.qml
         qml/RegisterPage.qml
         qml/MainPage.qml
+        qml/TrainerPage.qml
         qml/GreeterPage.qml
 )
