@@ -3,6 +3,7 @@ add_library(client_backend
     registration/registration_client.cpp
     auth/auth_client.cpp
     user/user_client.cpp
+    trainer/trainer_client.cpp
 )
 
 target_link_libraries(client_backend PUBLIC
