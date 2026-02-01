@@ -9,8 +9,8 @@
 
 class PgGladiatorDao final : public IGladiatorDao {
 public:
-    std::optional<db::Gladiator>
-    getByOwnerId(const std::string& owner_id) override;
+    std::optional<db::Gladiator> getByOwnerId(const std::string& owner_id) override;
+    void updateStatByValue(const std::string &gladiator_id, Stats stat, std::uint64_t value) override;
 
 private:
     static db::Gladiator rowToGladiator(const pqxx::row &r) {

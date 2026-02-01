@@ -15,6 +15,7 @@ public:
     std::optional<db::UserAuth> getUserForAuth(const std::string &email) override;
     std::optional<db::UserStats> getUserStats(const std::string &id) override;
     void createUser(const std::string &username, const std::string &email, const std::string &password_hash) override;
+    std::int64_t addUserMoney(const std::string &id, std::int64_t value) override;
 
 private:
     static db::User rowToUser(const pqxx::row &r) {

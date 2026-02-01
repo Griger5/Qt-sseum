@@ -152,3 +152,29 @@ void PgUserDao::createUser(const std::string &username, const std::string &email
         throw db::DaoError(e.what());
     }
 }
+
+std::int64_t PgUserDao::addUserMoney(const std::string &id, std::int64_t value) {
+    try {
+        pqxx::connection conn{utils::getDbConnectionString()};
+        pqxx::work tx{conn};
+
+        auto result = tx.exec_params(
+            "UPDATE player_stats "
+            "SET money = money + $1 "
+            "WHERE id = $2 "
+            "RETURNING money", 
+            value, id
+        );
+
+        if (result.empty()) {
+            throw db::DaoError("User not found");
+        }
+
+        tx.commit();
+
+        return result[0][0].as<std::int64_t>();
+    }
+    catch (const std::exception& e) {
+        throw db::DaoError(e.what());
+    }
+}

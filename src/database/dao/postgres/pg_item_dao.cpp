@@ -16,7 +16,6 @@ std::optional<db::Item> PgItemDao::getItemById(const std::string &item_id) {
 
         pqxx::work tx{conn};
 
-        std::cout << item_id << std::endl;
         auto result = tx.exec_params(
             "SELECT "
             "    ii.item_id, "
