@@ -8,35 +8,6 @@ service UserService {
     rpc getProfile (GetProfileRequest) returns (GetProfileResponse);
 }
 
-message User {
-    string id = 1;
-    string username = 2;
-    uint64 level = 3;
-    uint64 experience = 4;
-    uint64 money = 5;
-}
-
-message Gladiator {
-    string id = 1;
-    string name = 2;
-    string gladiator_class = 3;
-    uint64 strength = 4;
-    uint64 dexterity = 5;
-    uint64 defence = 6;
-    uint64 vitality = 7;
-}
-
-message Item {
-    string id = 1;
-    string name = 2;
-    uint64 min = 3;
-    uint64 max = 4;
-    uint64 strength = 5;
-    uint64 dexterity = 6;
-    uint64 defence = 7;
-    uint64 vitality = 8;
-}
-
 message GetProfileRequest {}
 
 message GetProfileResponse {
