@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package arena;
+
+import "src/proto/common.proto";
+
+service Arena {
+    rpc getOpponents (OpponentsRequest) returns (OpponentsResponse);
+    // rpc performFight (FightRequest) returns (stream FightTurn);
+}
+
+message Opponent {
+    common.User user = 1;
+    common.Gladiator gladiator = 2;
+    common.Item item = 3;
+}
+
+message OpponentsRequest {
+    uint32 number_of_ops = 1;
+}
+
+message OpponentsResponse {
+    repeated Opponent opponent = 1;
+}

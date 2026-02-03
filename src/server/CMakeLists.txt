@@ -5,6 +5,7 @@ add_executable(server
     auth/auth_service.cpp
     user/user_service.cpp
     trainer/trainer_service.cpp
+    arena/arena_service.cpp
 )
 
 target_link_libraries(server PRIVATE
