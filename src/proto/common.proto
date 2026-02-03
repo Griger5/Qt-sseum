@@ -1,12 +1,6 @@
 syntax = "proto3";
 
-package user;
-
-import "src/proto/common.proto";
-
-service UserService {
-    rpc getProfile (GetProfileRequest) returns (GetProfileResponse);
-}
+package common;
 
 message User {
     string id = 1;
@@ -35,13 +29,4 @@ message Item {
     uint64 dexterity = 6;
     uint64 defence = 7;
     uint64 vitality = 8;
-}
-
-message GetProfileRequest {}
-
-message GetProfileResponse {
-    common.User user = 1;
-    common.Gladiator gladiator = 2;
-    bool item_exists = 3;
-    common.Item item = 4;
 }

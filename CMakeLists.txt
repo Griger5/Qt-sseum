@@ -32,6 +32,7 @@ FetchContent_MakeAvailable(uuid_v4)
 set(PROTO_DIR src/proto)
 
 add_library(protolib
+    ${PROTO_DIR}/common.proto
     ${PROTO_DIR}/greeter.proto
     ${PROTO_DIR}/registration.proto
     ${PROTO_DIR}/auth.proto
