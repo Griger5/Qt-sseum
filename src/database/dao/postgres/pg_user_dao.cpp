@@ -132,6 +132,43 @@ std::optional<db::UserStats> PgUserDao::getUserStats(const std::string &id) {
     }
 }
 
+std::optional<std::vector<db::UserStats>> PgUserDao::getRandomUserStats(std::uint32_t number_of_users, const std::string &id_to_skip) {
+    try {
+        pqxx::connection conn{utils::getDbConnectionString()};
+
+        pqxx::work tx{conn};
+
+        auto result = tx.exec_params(
+            "SELECT u.id, u.username, ps.money, ps.level, ps.exp FROM users u "
+            "JOIN player_stats ps ON u.id = ps.id "
+            "WHERE u.id != $1 "
+            "ORDER BY random() LIMIT $2",
+            id_to_skip, number_of_users
+        );
+
+        tx.commit();
+
+        if (result.empty()) {
+            return std::nullopt;
+        }
+
+        std::vector<db::UserStats> user_stats;
+
+        for (const pqxx::row &r : result) {
+            user_stats.push_back(PgUserDao::rowToUserStats(r));
+        }
+
+        if (user_stats.size() < number_of_users) {
+            return std::nullopt;
+        }
+
+        return user_stats;
+    }
+    catch (const std::exception &e) {
+        throw db::DaoError(e.what());
+    }
+}
+
 void PgUserDao::createUser(const std::string &username, const std::string &email, const std::string &password_hash) {
     try {
         pqxx::connection conn{utils::getDbConnectionString()};
