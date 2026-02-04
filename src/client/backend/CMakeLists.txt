@@ -4,6 +4,7 @@ add_library(client_backend
     auth/auth_client.cpp
     user/user_client.cpp
     trainer/trainer_client.cpp
+    arena/arena_client.cpp
 )
 
 target_link_libraries(client_backend PUBLIC
