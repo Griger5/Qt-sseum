@@ -19,6 +19,8 @@ qt_add_executable(client
     user/user_worker.cpp
     trainer/trainer_client_qt.cpp
     trainer/trainer_worker.cpp
+    arena/arena_client_qt.cpp
+    arena/arena_worker.cpp
 )
 
 target_link_libraries(client PRIVATE
@@ -44,5 +46,6 @@ qt_add_qml_module(client
         qml/RegisterPage.qml
         qml/MainPage.qml
         qml/TrainerPage.qml
+        qml/ArenaPage.qml
         qml/GreeterPage.qml
 )

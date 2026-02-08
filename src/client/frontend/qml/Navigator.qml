@@ -24,12 +24,20 @@ Item {
         MainPage {
             onLogoutRequested: logout()
             onGoToTraining: showTraining()
+            onGoToArena: showArena()
         }
     }
 
     Component {
         id: trainerComponent
         TrainerPage {
+            onGoToMainPage: goBack()
+        }
+    }
+
+    Component {
+        id: arenaComponent
+        ArenaPage {
             onGoToMainPage: goBack()
         }
     }
@@ -64,6 +72,10 @@ Item {
 
     function showTraining() {
         stackView.push(trainerComponent)
+    }
+
+    function showArena() {
+        stackView.push(arenaComponent)
     }
 
     function showGreeter() {

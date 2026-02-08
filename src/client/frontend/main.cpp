@@ -6,6 +6,7 @@
 #include "client/frontend/registration/registration_client_qt.hpp"
 #include "client/frontend/auth/auth_client_qt.hpp"
 #include "client/frontend/trainer/trainer_client_qt.hpp"
+#include "client/frontend/arena/arena_client_qt.hpp"
 #include "client/frontend/models/user_qml.hpp"
 #include "client/frontend/models/gladiator_qml.hpp"
 #include "client/frontend/models/item_qml.hpp"
@@ -21,6 +22,7 @@ int main(int argc, char *argv[]) {
     RegistrationClientQt registrationClient;
     AuthClientQt authClient;
     TrainerClientQt trainerClient;
+    ArenaClientQt arenaClient;
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
@@ -42,6 +44,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("registrationClient", &registrationClient);
     engine.rootContext()->setContextProperty("authClient", &authClient);
     engine.rootContext()->setContextProperty("trainerClient", &trainerClient);
+    engine.rootContext()->setContextProperty("arenaClient", &arenaClient);
 
     engine.loadFromModule("ClientApp", "App");
 
