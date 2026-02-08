@@ -6,7 +6,7 @@ ApplicationWindow {
     width: 700
     height: 700
     visible: true
-    title: "Qt gRPC Client"
+    title: "Qt-sseum"
 
     StackView {
         id: stackView

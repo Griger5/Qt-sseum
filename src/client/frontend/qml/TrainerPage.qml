@@ -41,7 +41,7 @@ Page {
             Layout.fillWidth: true
 
             Label {
-                text: "Money: " + User.money
+                text: "Złoto: " + User.money
                 font.pixelSize: h3(parent.width)
                 Layout.fillWidth: true
             }
@@ -53,25 +53,25 @@ Page {
             }
 
             Label {
-                text: "Strength: " + Number(Gladiator.strength + Weapon.strength)
+                text: "Siła: " + Number(Gladiator.strength + Weapon.strength)
                 font.pixelSize: h4(parent.width)
                 Layout.fillWidth: true
             }
 
             Label {
-                text: "Dexterity: " + Number(Gladiator.dexterity + Weapon.dexterity)
+                text: "Zręczność: " + Number(Gladiator.dexterity + Weapon.dexterity)
                 font.pixelSize: h4(parent.width)
                 Layout.fillWidth: true
             }
 
             Label {
-                text: "Defence: " + Number(Gladiator.defence + Weapon.defence)
+                text: "Obrona: " + Number(Gladiator.defence + Weapon.defence)
                 font.pixelSize: h4(parent.width)
                 Layout.fillWidth: true
             }
 
             Label {
-                text: "Vitality: " + Number(Gladiator.vitality + Weapon.vitality)
+                text: "Zdrowie: " + Number(Gladiator.vitality + Weapon.vitality)
                 font.pixelSize: h4(parent.width)
                 Layout.fillWidth: true
             }
@@ -83,7 +83,7 @@ Page {
             }
 
             Label {
-                text: "Damage: " + Math.ceil(Weapon.min * Math.ceil((Gladiator.strength + Weapon.strength)/10)) + " - " + Math.ceil(Weapon.max * (1 + User.level/10) * Math.ceil((Gladiator.strength + Weapon.strength)/10))
+                text: "Obrażenia: " + Math.ceil(Weapon.min * Math.ceil((Gladiator.strength + Weapon.strength)/10)) + " - " + Math.ceil(Weapon.max * (1 + User.level/10) * Math.ceil((Gladiator.strength + Weapon.strength)/10))
                 font.pixelSize: h4(parent.width)
                 Layout.fillWidth: true
             }
@@ -97,7 +97,7 @@ Page {
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
 
             Label {
-                text: "Trainer"
+                text: "Trener"
                 font.pixelSize: h2(parent.width)
                 Layout.alignment: Qt.AlignHCenter
             }
@@ -112,7 +112,7 @@ Page {
             }
 
             Label {
-                text: "Cost: 100"
+                text: "Koszt: 100"
                 font.pixelSize: h2(parent.width)
                 Layout.alignment: Qt.AlignHCenter
             }
@@ -122,7 +122,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Add Strength"
+                text: "Dodaj Siłe"
                 onClicked: add_stat(str)
             }
 
@@ -131,7 +131,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Add Dexterity"
+                text: "Dodaj Zręczność"
                 onClicked: add_stat(dex)
             }
 
@@ -140,7 +140,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Add Defence"
+                text: "Dodaj Obrone"
                 onClicked: add_stat(def)
             }
 
@@ -149,7 +149,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Add Vitality"
+                text: "Dodaj Zdrowie"
                 onClicked: add_stat(vit)
             }
         }
@@ -165,7 +165,7 @@ Page {
                 Layout.maximumWidth: 200
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Back"
+                text: "Wróc"
                 onClicked: goToMainPage()
             }
         }
@@ -176,7 +176,7 @@ Page {
             trainerClient.upgradeStatAsync(Gladiator.id, stat, 1)
         }
         else {
-            errorDialog.text = "Not enough money!"
+            errorDialog.text = "Nie wystarczająco złota!"
             errorDialog.open()
         }
     }

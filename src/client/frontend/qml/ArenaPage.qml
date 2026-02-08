@@ -167,37 +167,37 @@ Page {
                 }
 
                 Label {
-                    text: "Class: " + gladiator_name
+                    text: "Klasa: " + gladiator_name
                     font.pixelSize: h4(parent.width)
                 }
 
                 Label {
-                    text: "Item: " + item_name
+                    text: "Broń: " + item_name
                     font.pixelSize: h4(parent.width)
                 }
 
                 Label {
-                    text: "Strength: " + strength
+                    text: "Siła: " + strength
                     font.pixelSize: h4(root.width)
                 }
 
                 Label {
-                    text: "Dexterity: " + dexterity
+                    text: "Zręczność: " + dexterity
                     font.pixelSize: h4(root.width)
                 }
 
                 Label {
-                    text: "Defence: " + defence
+                    text: "Obrona: " + defence
                     font.pixelSize: h4(root.width)
                 }
 
                 Label {
-                    text: "Vitality: " + vitality
+                    text: "Zdrowie: " + vitality
                     font.pixelSize: h4(root.width)
                 }
 
                 Label {
-                    text: "Damage: " + min + " - " + max
+                    text: "Obrażenia: " + min + " - " + max
                     font.pixelSize: h4(root.width)
                 }
 
@@ -206,7 +206,7 @@ Page {
                 }
 
                 Button {
-                    text: "Fight"
+                    text: "Walcz"
                     Layout.fillWidth: true
                     onClicked: root.fightRequested(id)
                 }

@@ -15,12 +15,6 @@ target_link_libraries(server PRIVATE
     jwt-cpp
     uuid_v4::uuid_v4
     utils
-    gRPC::grpc++
-    protobuf::libprotobuf
-    ssl
-    crypto
-    z
-    pthread
 )
 
 target_include_directories(server PRIVATE

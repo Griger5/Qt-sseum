@@ -43,12 +43,12 @@ Page {
             }
 
             Label {
-                text: "Experience: " + User.experience
+                text: "Doświadczenie: " + User.experience
                 font.pixelSize: h3(parent.width)
             }
 
             Label {
-                text: "Money: " + User.money
+                text: "Złoto: " + User.money
                 font.pixelSize: h3(parent.width)
             }
         }
@@ -82,27 +82,27 @@ Page {
             }
 
             Label {
-                text: "Item: " + Weapon.name
+                text: "Broń: " + Weapon.name
                 font.pixelSize: h4(parent.width)
             }
 
             Label {
-                text: "Strength: " + Number(Gladiator.strength + Weapon.strength)
+                text: "Siła: " + Number(Gladiator.strength + Weapon.strength)
                 font.pixelSize: h4(parent.width)
             }
 
             Label {
-                text: "Dexterity: " + Number(Gladiator.dexterity + Weapon.dexterity)
+                text: "Zręczność: " + Number(Gladiator.dexterity + Weapon.dexterity)
                 font.pixelSize: h4(parent.width)
             }
 
             Label {
-                text: "Defence: " + Number(Gladiator.defence + Weapon.defence)
+                text: "Obrona: " + Number(Gladiator.defence + Weapon.defence)
                 font.pixelSize: h4(parent.width)
             }
 
             Label {
-                text: "Vitality: " + Number(Gladiator.vitality + Weapon.vitality)
+                text: "Zdrowie: " + Number(Gladiator.vitality + Weapon.vitality)
                 font.pixelSize: h4(parent.width)
             }
 
@@ -112,7 +112,7 @@ Page {
             }
 
             Label {
-                text: "Damage: " + Math.ceil(Weapon.min * Math.ceil((Gladiator.strength + Weapon.strength)/10)) + " - " + Math.ceil(Weapon.max * (1 + User.level/10) * Math.ceil((Gladiator.strength + Weapon.strength)/10))
+                text: "Obrażenia: " + Math.ceil(Weapon.min * Math.ceil((Gladiator.strength + Weapon.strength)/10)) + " - " + Math.ceil(Weapon.max * (1 + User.level/10) * Math.ceil((Gladiator.strength + Weapon.strength)/10))
                 font.pixelSize: h4(parent.width)
             }
         }
@@ -137,7 +137,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Exploration"
+                text: "Eksploracja"
                 onClicked: goToExploration()
             }
 
@@ -146,7 +146,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Market"
+                text: "Rynek"
                 onClicked: goToMarket()
             }
 
@@ -155,7 +155,7 @@ Page {
                 Layout.maximumWidth: 400
                 font.pixelSize: buttonH1(parent.width)
                 padding: parent.width * 0.08
-                text: "Training"
+                text: "Trener"
                 onClicked: goToTraining()
             }
 
@@ -172,7 +172,7 @@ Page {
                 Layout.fillWidth: true
                 Layout.maximumWidth: 150
                 Layout.alignment: Qt.AlignHCenter
-                text: "Logout"
+                text: "Wyloguj"
                 onClicked: logoutRequested()
             }
         }

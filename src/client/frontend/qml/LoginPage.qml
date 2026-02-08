@@ -39,7 +39,7 @@ Page {
             }
             TextField {
                 id: emailInput;
-                placeholderText: "Enter your email"
+                placeholderText: "Wpisz swój email"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -51,7 +51,7 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
             Label {
-                text: "Password"
+                text: "Hasło"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignLeft
@@ -60,7 +60,7 @@ Page {
             TextField { 
                 id: passwordInput;
                 echoMode: TextInput.Password;
-                placeholderText: "Enter your password"
+                placeholderText: "Wpisz swoje hasło"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -79,7 +79,7 @@ Page {
         }
 
         Button {
-            text: "Don't have an account yet?"
+            text: "Nie masz jeszcze konta?"
             Layout.fillWidth: true
             Layout.maximumWidth: 400
             Layout.alignment: Qt.AlignHCenter
@@ -98,13 +98,13 @@ Page {
 
         function onInvalidCredentials() {
             busy = false
-            errorDialog.text = "Invalid email or password!"
+            errorDialog.text = "Zły email lub hasło!"
             errorDialog.open()
         }
 
         function onAuthUnavailable() {
             busy = false
-            errorDialog.text = "The service is currently unavailable. Try again later."
+            errorDialog.text = "Serwer nieodpowiada. Spróbuj ponownie później."
             errorDialog.open()
         }
 

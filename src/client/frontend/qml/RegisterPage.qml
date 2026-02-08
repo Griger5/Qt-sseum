@@ -20,7 +20,7 @@ Page {
         width: parent.width * 0.8
 
         Text {
-            text: "Register"
+            text: "Zarejetruj konto"
             font.pointSize: 24
             horizontalAlignment: Text.AlignHCenter
             Layout.alignment: Qt.AlignHCenter
@@ -31,7 +31,7 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
             Label {
-                text: "Username"
+                text: "Nick"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignLeft
@@ -39,7 +39,7 @@ Page {
 
             TextField {
                 id: usernameInput;
-                placeholderText: "Choose a username"
+                placeholderText: "Wybierz swój nick"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -59,7 +59,7 @@ Page {
 
             TextField {
                 id: emailInput;
-                placeholderText: "Enter your email"
+                placeholderText: "Wybierz swój email"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -71,7 +71,7 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
             Label {
-                text: "Password"
+                text: "Hasło"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignLeft
@@ -80,7 +80,7 @@ Page {
             TextField {
                 id: passwordInput;
                 echoMode: TextInput.Password;
-                placeholderText: "Choose a password"
+                placeholderText: "Wybierz hasło"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -92,7 +92,7 @@ Page {
             Layout.alignment: Qt.AlignHCenter
 
             Label {
-                text: "Confirm Password"
+                text: "Powtórz hasło"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignLeft
@@ -101,7 +101,7 @@ Page {
             TextField {
                 id: passwordConfirmInput;
                 echoMode: TextInput.Password;
-                placeholderText: "Re-enter password"
+                placeholderText: "Powtórz hasło"
                 Layout.fillWidth: true
                 Layout.maximumWidth: 400
                 Layout.alignment: Qt.AlignHCenter
@@ -109,14 +109,14 @@ Page {
         }
 
         Button {
-            text: busy ? "Working..." : "Register"
+            text: busy ? "Working..." : "Zarejestruj"
             enabled: !busy
             Layout.fillWidth: true
             Layout.maximumWidth: 400
             Layout.alignment: Qt.AlignHCenter
             onClicked: {
                 if (passwordInput.text !== passwordConfirmInput.text) {
-                    errorDialog.text = "Passwords do not match!";
+                    errorDialog.text = "Hasła się nie zgadzają!";
                     errorDialog.open();
                     return;
                 }
@@ -127,7 +127,7 @@ Page {
         }
 
         Button {
-            text: "Already have an account?"
+            text: "Masz już konto?"
             Layout.fillWidth: true
             Layout.maximumWidth: 400
             Layout.alignment: Qt.AlignHCenter
@@ -146,13 +146,13 @@ Page {
 
         function onUserAlreadyExists() {
             busy = false;
-            errorDialog.text = "User with this email already exists!";
+            errorDialog.text = "Użytkwonik z tym emailem już istnieje!";
             errorDialog.open();
         }
 
         function onDatabaseUnavailable() {
             busy = false;
-            errorDialog.text = "The service is currently unavailable. Try again later.";
+            errorDialog.text = "Serwer nieodpowiada, spróbuj ponownie później";
             errorDialog.open();
         }
 
